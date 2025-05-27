@@ -9,6 +9,7 @@ metadata:
   name: jenkins-ingress
   # Annotation supprimée pour compatibilité avec le contrôleur Ingress GKE natif
 spec:
+  ingressClassName: nginx
   rules:
     - host: jenkins.devops.local
       http:

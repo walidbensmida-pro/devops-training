@@ -1,3 +1,6 @@
+<!-- filepath: cheatsheets/gcloud.md -->
+# GCloud Cheat Sheet
+
 # 🚀 Déploiement sur Google Kubernetes Engine (GKE)
 
 ## 🛠 Installation du SDK Google Cloud
