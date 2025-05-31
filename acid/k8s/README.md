@@ -16,6 +16,7 @@ Bienvenue ! Ce dossier contient tous les fichiers nécessaires pour déployer un
   - [Diagramme d'architecture](#diagramme-darchitecture)
   - [Déploiement rapide](#déploiement-rapide)
   - [Accès aux applications](#accès-aux-applications)
+  - [Bonnes pratiques Ingress (nginx-ingress)](#bonnes-pratiques-ingress-nginx-ingress)
   - [Portabilité](#portabilité)
   - [Pour aller plus loin](#pour-aller-plus-loin)
   - [FAQ (Foire Aux Questions)](#faq-foire-aux-questions)
@@ -117,14 +118,32 @@ kubectl delete -f ./k8s/
 
 ## Accès aux applications
 
-- Ajoutez dans votre fichier hosts (Windows : `C:\Windows\System32\drivers\etc\hosts`) :
-  - `127.0.0.1 vault.devops.local`
-  - `127.0.0.1 jenkins.devops.local`
-- Accédez à :
+- Récupérez l'IP du service `ingress-nginx-controller` (commande : `kubectl get svc -n ingress-nginx`)
+- Ajoutez dans votre fichier hosts (Windows : `C:\Windows\System32\drivers\etc\hosts`) :
+  - `<IP_NGINX> vault.devops.local`
+  - `<IP_NGINX> jenkins.devops.local`
+  - `<IP_NGINX> keycloak.local`
+  - `<IP_NGINX> <autre-app>.local`
+- Accédez à :
   - http://vault.devops.local:8200
   - http://jenkins.devops.local:8080
+  - http://keycloak.local:8080
+  - ...
 
-> Remplacez l’IP par celle de votre cluster si besoin (ex : minikube ip)
+> **Attention :**
+> Pour une architecture propre et économique, il faut **une seule IP publique** (celle du nginx-ingress) pour tout le cluster. Tous les Ingress doivent avoir `ingressClassName: nginx` et pointer vers cette IP. Ne gardez pas les anciens Ingress GKE natifs qui créent chacun leur propre IP !
+
+---
+
+## Bonnes pratiques Ingress (nginx-ingress)
+
+- Un seul Ingress Controller (nginx-ingress) pour tout le cluster
+- Une seule IP publique partagée pour tous les services exposés
+- Un Ingress par application/service, tous avec `ingressClassName: nginx`
+- Un fichier hosts unique pour tous les hosts
+- Portabilité garantie (local, cloud, multi-cloud)
+
+---
 
 ## Portabilité
 

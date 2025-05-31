@@ -3,11 +3,24 @@ kind: Ingress
 metadata:
   name: keycloak-ingress
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/x-forwarded-prefix: "/"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "176.169.25.68/32"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - keycloak.walidbensmida.com
+      secretName: keycloak-walidbensmida-com-tls
   rules:
-    - host: keycloak.local
+    - host: keycloak.walidbensmida.com
       http:
         paths:
           - path: /

@@ -7,11 +7,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: jenkins-ingress
-  # Annotation supprimée pour compatibilité avec le contrôleur Ingress GKE natif
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - jenkins.walidbensmida.com
+      secretName: jenkins-walidbensmida-com-tls
   rules:
-    - host: jenkins.devops.local
+    - host: jenkins.walidbensmida.com
       http:
         paths:
           - path: /

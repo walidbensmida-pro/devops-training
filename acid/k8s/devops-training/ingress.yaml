@@ -9,10 +9,16 @@ metadata:
   name: devops-training-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - walidbensmida.com
+      secretName: walidbensmida-com-tls
   rules:
-    - http:
+    - host: walidbensmida.com
+      http:
         paths:
           - path: /
             pathType: Prefix

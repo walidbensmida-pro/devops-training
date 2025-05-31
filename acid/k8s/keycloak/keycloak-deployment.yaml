@@ -19,7 +19,12 @@ spec:
       containers:
         - name: keycloak
           image: quay.io/keycloak/keycloak:24.0.1
-          args: ["start-dev"]
+          volumeMounts:
+            - name: keycloak-storage
+              mountPath: /opt/keycloak/data
+          # L'option --proxy=edge indique à Keycloak (Quarkus 17+) qu'il est derrière un ingress/reverse proxy HTTPS
+          # et qu'il doit générer toutes les URLs internes en HTTPS (sinon erreurs Mixed Content et intégration SSO impossible)
+          args: ["start-dev", "--proxy=edge"]
           env:
             - name: KEYCLOAK_ADMIN
               value: "admin"
@@ -34,3 +39,7 @@ spec:
             limits:
               memory: "1Gi"
               cpu: "250m"
+      volumes:
+        - name: keycloak-storage
+          persistentVolumeClaim:
+            claimName: keycloak-pvc
