@@ -10,7 +10,7 @@ spring:
     vault:
       uri: http://vault:8200
       authentication: TOKEN
-      token: ${VAULT_TOKEN}   # <= Ici : VAULT_TOKEN injecté comme ENV
+      token: ${VAULT_TOKEN} # <= Ici : VAULT_TOKEN injecté comme ENV
       kv:
         enabled: true
         backend: secret
@@ -19,6 +19,32 @@ spring:
         version: 1
       ssl:
         skip-verify: true
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: devops-training
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+            scope: openid,profile,email
+        provider:
+          keycloak:
+            issuer-uri: https://keycloak.walidbensmida.com/realms/devops-training
+            authorization-uri: https://keycloak.walidbensmida.com/realms/devops-training/protocol/openid-connect/auth
+            token-uri: https://keycloak.walidbensmida.com/realms/devops-training/protocol/openid-connect/token
+            user-info-uri: https://keycloak.walidbensmida.com/realms/devops-training/protocol/openid-connect/userinfo
+            jwk-set-uri: https://keycloak.walidbensmida.com/realms/devops-training/protocol/openid-connect/certs
+      resourceserver:
+        jwt:
+          issuer-uri: https://keycloak.walidbensmida.com/realms/devops-training
 
 management:
   server:

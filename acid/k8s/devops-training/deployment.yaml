@@ -33,6 +33,11 @@ spec:
                 secretKeyRef:
                   name: vault-token-secret
                   key: VAULT_TOKEN
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-client-secret
+                  key: KEYCLOAK_CLIENT_SECRET
           readinessProbe:
             httpGet:
               path: /actuator/health
@@ -56,4 +61,3 @@ spec:
             limits:
               cpu: "50m"
               memory: "64Mi"
-

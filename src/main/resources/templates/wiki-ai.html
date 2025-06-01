@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Wiki AI – Pose ta question</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+    <th:block th:replace="fragments/theme-style :: theme-style"></th:block>
+</head>
+
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="ai-box">
+        <label for="question">Pose ta question sur la doc du projet :</label>
+        <textarea id="question" placeholder="Ex : Comment déployer un Ingress sur Kubernetes ?"></textarea>
+        <br>
+        <button onclick="askWiki()">Envoyer</button>
+        <div id="answer" class="ai-answer" style="display:none"></div>
+    </div>
+    <script>
+        function askWiki() {
+            const question = document.getElementById('question').value;
+            const answerDiv = document.getElementById('answer');
+            answerDiv.style.display = 'block';
+            answerDiv.classList.remove('visible');
+            answerDiv.innerHTML = '<em>Recherche de la réponse...</em>';
+            fetch('/api/ask-wiki', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    answerDiv.innerHTML = data.answer;
+                    answerDiv.classList.add('visible');
+                })
+                .catch(() => {
+                    answerDiv.innerHTML = "<span style='color:red'>Erreur lors de la récupération de la réponse.</span>";
+                });
+        }
+    </script>
+</body>
+
+</html>

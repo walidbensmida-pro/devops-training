@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact – DevOps Training</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+    <th:block th:replace="fragments/theme-style :: theme-style"></th:block>
+</head>
+
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="main-content">
+        <h1>Contactez-moi</h1>
+        <form id="contactForm" onsubmit="sendContact(event)">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <button type="submit">Envoyer</button>
+            <div id="successMsg" class="success" style="display:none"></div>
+        </form>
+    </div>
+    <script>
+        function sendContact(e) {
+            e.preventDefault();
+            document.getElementById('successMsg').style.display = 'block';
+            document.getElementById('successMsg').innerText = 'Merci pour votre message ! (Formulaire démo, pas d’envoi réel)';
+            document.getElementById('contactForm').reset();
+        }
+    </script>
+</body>
+
+</html>
