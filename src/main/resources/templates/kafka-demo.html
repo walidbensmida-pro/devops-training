@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Démo Kafka</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <th:block th:replace="fragments/theme-style :: theme-style"></th:block>
+</head>
+
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="kafka-nav">
+        <a href="#producer" class="kafka-nav-btn">Producer</a>
+        <a href="#consumer" class="kafka-nav-btn">Consumer</a>
+        <a href="#streaming" class="kafka-nav-btn">Streaming</a>
+        <a href="#polling" class="kafka-nav-btn">Polling</a>
+        <a href="#test" class="kafka-nav-btn">Test</a>
+    </div>
+    <div class="main-content">
+        <h1>Démo Kafka</h1>
+        <p><b>Topic courant :</b> <span th:text="${topic}"></span></p>
+
+        <section class="kafka-card" id="producer">
+            <h2>Producer classique</h2>
+            <form th:action="@{/kafka-demo/publish}" method="post">
+                <input type="text" name="key" placeholder="Clé (optionnelle)" />
+                <input type="text" name="message" placeholder="Votre message" required />
+                <button type="submit">Envoyer</button>
+            </form>
+            <div th:if="${info}" style="color: green;">[[${info}]]</div>
+        </section>
+
+        <section class="kafka-card" id="consumer">
+            <h2>Messages consommés (Consumer classique)</h2>
+            <ul>
+                <li th:each="msg : ${messages}" th:text="${msg}"></li>
+            </ul>
+        </section>
+
+        <section class="kafka-card" id="streaming">
+            <h2>Streaming (KStream)</h2>
+            <p>
+                <b>Explication :</b> Kafka Streams (KStream) permet de traiter les messages en temps réel, de façon
+                déclarative et puissante.<br>
+                Dans cet exemple, chaque message publié sur le topic est aussi traité par un flux KStream et affiché
+                dans
+                les logs de l’application avec le tag <code>[KStream]</code>.<br>
+                <i>Pour voir le résultat, regarde la console/logs de l’application Spring Boot.</i>
+            </p>
+            <!-- Plus tard : affichage dynamique, agrégations, etc. -->
+        </section>
+
+        <section class="kafka-card" id="polling">
+            <h2>Messages lus en direct (Polling Kafka natif)</h2>
+            <ul>
+                <li th:each="msg : ${polledMessages}" th:text="${msg}"></li>
+            </ul>
+            <p style="font-size:small;color:gray;">
+                <b>Explication :</b> Cette liste affiche les messages lus "en direct" depuis le serveur Kafka, sans
+                passer
+                par la mémoire de l'application.<br>
+                Cela permet de comparer le stockage en mémoire (Java) et le stockage réel dans Kafka.<br>
+                <i>Le polling utilise un consumer temporaire qui lit tous les messages du topic à chaque appel.</i>
+            </p>
+        </section>
+
+        <section class="kafka-card" id="test">
+            <form th:action="@{/kafka-demo/publish-test}" method="post" style="display:inline;">
+                <button type="submit">Publier un message de test</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Plus tard : autres cas d'usage pédagogiques -->
+
+</body>
+
+</html>

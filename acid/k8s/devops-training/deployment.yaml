@@ -14,15 +14,15 @@ spec:
     spec:
       containers:
         - name: devops-training
-          image: walidbensmida/devops-training:v15
+          image: walidbensmida/devops-training:v17
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: "50m"
-              memory: "64Mi"
-            limits:
-              cpu: "200m"
+              cpu: "100m"
               memory: "256Mi"
+            limits:
+              cpu: "250m"
+              memory: "512Mi"
           ports:
             - containerPort: 8081
           env:
@@ -38,18 +38,23 @@ spec:
                 secretKeyRef:
                   name: keycloak-client-secret
                   key: KEYCLOAK_CLIENT_SECRET
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai-api-key-secret
+                  key: OPENAI_API_KEY
           readinessProbe:
             httpGet:
               path: /actuator/health
               port: 8081
-            initialDelaySeconds: 90
+            initialDelaySeconds: 120
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /actuator/health
               port: 8081
-            initialDelaySeconds: 120
-            periodSeconds: 10
+            initialDelaySeconds: 200
+            periodSeconds: 20
         - name: busybox
           image: busybox
           command: ["sleep", "3600"]

@@ -21,4 +21,9 @@ public class DemoController {
     public String contact(Model model) {
         return "contact";
     }
+
+    @GetMapping("/lab")
+    public String lab(Model model) {
+        return "lab";
+    }
 }

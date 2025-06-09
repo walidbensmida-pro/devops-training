@@ -1,11 +1,49 @@
 <!-- fragments/theme-style.html -->
 <th:block th:fragment="theme-style">
+    <!-- Import Google Fonts Inter variable -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap" rel="stylesheet">
     <style>
         body {
+            font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-variation-settings: 'wght' 500;
             background: linear-gradient(120deg, #6a82fb 0%, #fc5c7d 100%);
             min-height: 100vh;
             margin: 0;
-            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-variation-settings: 'wght' 700;
+        }
+
+        .navbar .logo,
+        .lab-title,
+        .kafka-card h2 {
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar a {
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .lab-desc {
+            font-weight: 500;
+            letter-spacing: 0.1px;
         }
 
         .navbar {
@@ -83,6 +121,61 @@
             outline: none;
         }
 
+        button,
+        .btn-primary {
+            background: linear-gradient(120deg, #6a82fb 0%, #fc5c7d 100%);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1em;
+            padding: 9px 22px;
+            box-shadow: 0 2px 8px 0 #6a82fb22;
+            cursor: pointer;
+            transition: box-shadow 0.18s, background 0.18s, transform 0.13s;
+            letter-spacing: 0.3px;
+            margin-top: 8px;
+        }
+
+        button:hover,
+        .btn-primary:hover {
+            background: linear-gradient(120deg, #fc5c7d 0%, #6a82fb 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px 0 #fc5c7d44;
+            transform: translateY(-1px) scale(1.03);
+        }
+
+        button:focus,
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #fc5c7d55;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-size: 1em;
+            font-family: 'Inter', Arial, sans-serif;
+            transition: border 0.18s, box-shadow 0.18s;
+            box-shadow: 0 1px 4px 0 #6a82fb11;
+            background: #fafbff;
+            color: #222;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        textarea:focus {
+            border: 1.5px solid #6a82fb;
+            box-shadow: 0 2px 8px 0 #6a82fb22;
+            outline: none;
+            background: #fff;
+        }
+
         .ai-box button {
             margin-top: 16px;
             padding: 10px 28px;
@@ -122,6 +215,126 @@
             transform: translateY(0);
         }
 
+        .lab-menu {
+            display: flex;
+            gap: 32px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .lab-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px 0 rgba(31, 38, 135, 0.10);
+            padding: 28px 32px;
+            min-width: 220px;
+            text-decoration: none;
+            color: #222;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .lab-card:hover {
+            box-shadow: 0 8px 32px 0 #6a82fb44;
+            transform: translateY(-4px) scale(1.03);
+        }
+
+        .lab-icon {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .lab-title {
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 6px;
+        }
+
+        .lab-desc {
+            font-size: 0.98em;
+            color: #6a82fb;
+        }
+
+        .kafka-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px 0 rgba(31, 38, 135, 0.10);
+            padding: 28px 32px 22px 32px;
+            margin-bottom: 32px;
+            max-width: 900px;
+        }
+
+        .kafka-card h2 {
+            margin-top: 0;
+        }
+
+        .kafka-card ul {
+            margin-top: 10px;
+        }
+
+        .kafka-card form {
+            margin-top: 10px;
+        }
+
+        .kafka-nav {
+            position: fixed;
+            top: 110px;
+            left: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 10;
+        }
+
+        .kafka-nav-btn {
+            background: linear-gradient(120deg, #6a82fb 0%, #fc5c7d 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px 0 #6a82fb22;
+            padding: 14px 28px;
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            transition: box-shadow 0.22s, background 0.22s, transform 0.18s;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1.08em;
+            letter-spacing: 0.5px;
+            margin-right: 0;
+            margin-left: 0;
+            margin-bottom: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kafka-nav-btn:hover,
+        .kafka-nav-btn.active {
+            background: linear-gradient(120deg, #fc5c7d 0%, #6a82fb 100%);
+            color: #fff;
+            box-shadow: 0 6px 24px 0 #fc5c7d44;
+            transform: translateY(-2px) scale(1.04);
+        }
+
+        .kafka-nav-btn:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            box-shadow: 0 0 0 0 #fc5c7d44;
+            transition: box-shadow 0.22s;
+        }
+
+        .kafka-nav-btn:focus:after {
+            box-shadow: 0 0 0 3px #fc5c7d55;
+        }
+
         @media (max-width: 700px) {
             .main-content {
                 padding: 18px 4vw 18px 4vw;
@@ -140,6 +353,12 @@
 
             .navbar {
                 padding: 0 8vw;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .kafka-nav {
+                display: none;
             }
         }
     </style>

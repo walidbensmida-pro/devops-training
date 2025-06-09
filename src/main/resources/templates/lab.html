@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lab / Projets techniques</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+    <th:block th:replace="fragments/theme-style :: theme-style"></th:block>
+</head>
+
+<body>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="main-content">
+        <h1>Lab / Projets techniques</h1>
+        <p>Bienvenue dans mon espace <b>Lab</b> !<br>
+            Ici, je regroupe tous mes travaux pratiques, POC, démos et expérimentations pour la montée en compétences
+            DevOps, Cloud et Java.
+        </p>
+        <div class="lab-menu">
+            <a class="lab-card" href="/kafka-demo">
+                <span class="lab-icon">🟣</span>
+                <span class="lab-title">Kafka POC</span>
+                <span class="lab-desc">Traitement massif, batch, streaming, résilience</span>
+            </a>
+            <a class="lab-card" href="/wiki-ai">
+                <span class="lab-icon">🤖</span>
+                <span class="lab-title">Wiki IA</span>
+                <span class="lab-desc">Recherche intelligente dans la documentation</span>
+            </a>
+            <!-- D'autres cards pourront être ajoutées ici -->
+        </div>
+    </div>
+</body>
+
+</html>

@@ -6,6 +6,8 @@ spring:
     name: devops-training
   config:
     import: vault://
+    activate:
+      on-profile: default
   cloud:
     vault:
       uri: http://vault:8200
@@ -45,6 +47,24 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://keycloak.walidbensmida.com/realms/devops-training
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: devops-training-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    streams:
+      application-id: devops-training-streams
+      bootstrap-servers: kafka:9092
+
+kafka:
+  demo:
+    topic: devops-training-topic
+    polling-group-prefix: polling-demo-group
 
 management:
   server:
