@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "devops-training.fullname" . }}
+  labels:
+    app: {{ include "devops-training.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ include "devops-training.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "devops-training.name" . }}
+    spec:
+      containers:
+        - name: {{ include "devops-training.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu | default "100m" | quote }}
+              memory: {{ .Values.resources.requests.memory | default "256Mi" | quote }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu | default "250m" | quote }}
+              memory: {{ .Values.resources.limits.memory | default "512Mi" | quote }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.env.SPRING_PROFILES_ACTIVE | quote }}
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.vaultToken.name }}
+                  key: {{ .Values.secrets.vaultToken.key }}
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.keycloakClient.name }}
+                  key: {{ .Values.secrets.keycloakClient.key }}
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.openaiApiKey.name }}
+                  key: {{ .Values.secrets.openaiApiKey.key }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 120
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 200
+            periodSeconds: 20
+        - name: busybox
+          image: busybox
+          command: ["sleep", "3600"]
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "50m"
+              memory: "64Mi"

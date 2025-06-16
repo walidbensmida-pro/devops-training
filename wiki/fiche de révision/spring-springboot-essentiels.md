@@ -140,3 +140,123 @@
 
 - **Comment documenter une API Spring Boot ?**
   - Utiliser Springdoc OpenAPI ou Swagger pour générer la doc automatiquement.
+
+---
+
+## Comment fonctionne Spring & Spring Boot ? (pédagogique, simple)
+
+### 1. Démarrage d'une appli Spring Boot
+
+- Quand tu lances l'appli (main ou `mvn spring-boot:run`), Spring Boot :
+  1. Charge le fichier `application.yml` ou `application.properties` (config globale).
+  2. Scanne tout le code à la recherche d'annotations spéciales (`@Component`, `@Service`, `@Repository`, `@Controller`, etc.).
+  3. Crée un "contexte" (container) où il va gérer tous les objets utiles (les "beans").
+  4. Instancie les beans, injecte les dépendances automatiquement (DI), configure les objets selon le YAML.
+  5. Démarre le serveur web (Tomcat intégré) si besoin.
+
+### 2. Les beans et l'injection de dépendance
+
+- Un **bean** = un objet géré par Spring (créé, configuré, injecté automatiquement).
+- Pour qu'une classe soit un bean, il faut une annotation comme :
+  - `@Component` (générique)
+  - `@Service` (logique métier)
+  - `@Repository` (accès BDD)
+  - `@Controller` ou `@RestController` (web/API)
+- **Injection de dépendance** :
+  - Si une classe a besoin d'une autre, Spring l'injecte automatiquement (plus besoin de `new`).
+  - On utilise `@Autowired` (ou mieux : l'injection par constructeur).
+
+**Exemple** :
+
+```java
+@Service
+public class UserService {
+  private final UserRepository repo;
+  public UserService(UserRepository repo) { this.repo = repo; }
+}
+```
+
+- Ici, `UserRepository` est injecté automatiquement dans `UserService`.
+
+### 3. Le scan automatique
+
+- Spring scanne tous les packages à partir du package principal (là où il y a `@SpringBootApplication`).
+- Il cherche toutes les classes annotées pour les enregistrer comme beans.
+- Si tu oublies l'annotation, la classe n'est pas gérée par Spring (pas d'injection possible, pas de config automatique).
+
+### 4. Le fichier `application.yml`
+
+- Sert à configurer l'appli (port, BDD, sécurité, profils, etc.).
+- Les valeurs peuvent être injectées dans les beans avec `@Value` ou `@ConfigurationProperties`.
+
+**Exemple** :
+
+```yaml
+server:
+  port: 8081
+ma:
+  config: valeur
+```
+
+```java
+@Value("${ma.config}")
+private String maConfig;
+```
+
+### 5. À quoi servent les annotations ?
+
+- Elles disent à Spring ce qu'il doit gérer et comment :
+  - `@Component`, `@Service`, `@Repository`, `@Controller` : déclarer un bean.
+  - `@Autowired` : demander une injection automatique.
+  - `@Configuration`, `@Bean` : configurer des beans manuellement.
+  - `@Value` : injecter une valeur de config.
+  - `@Profile` : activer selon l'environnement.
+  - `@RestController`, `@GetMapping`, etc. : exposer des APIs.
+
+**Si tu ne mets pas l'annotation** :
+- La classe n'est pas gérée par Spring, donc pas d'injection, pas de config automatique, pas d'API exposée.
+
+### 6. Résumé oral pour l'entretien
+
+> "Spring Boot démarre en scannant le code pour trouver les classes annotées, crée un container d'objets (beans), injecte automatiquement les dépendances, configure tout selon le YAML, et lance le serveur web. Les annotations servent à dire à Spring quoi gérer. Si on ne les met pas, la classe n'est pas prise en charge."
+
+---
+
+## Comment fonctionne Spring Boot ? (démarrage, cycle de vie, super simple)
+
+### 1. Démarrage d’une appli Spring Boot
+
+- Tu lances la classe avec `@SpringBootApplication` (main).
+- Spring Boot :
+  1. Charge la config (`application.yml` ou `.properties`).
+  2. Scanne le code pour trouver les classes annotées (beans).
+  3. Crée le "contexte" Spring (container d’objets/beans).
+  4. Instancie et configure tous les beans (selon les annotations et le YAML).
+  5. Démarre le serveur web intégré (Tomcat, Jetty, etc.) si besoin.
+  6. Affiche la bannière Spring Boot et l’URL d’accès.
+
+### 2. Ce que fait Spring Boot pour toi
+
+- Configure automatiquement plein de choses (BDD, web, sécurité…) selon les dépendances présentes.
+- Fournit des "starters" (dépendances prêtes à l’emploi) pour chaque usage (`spring-boot-starter-web`, etc.).
+- Gère le cycle de vie des beans (création, injection, destruction).
+- Permet de surcharger la config via YAML, variables d’env, profils.
+- Expose des endpoints d’admin avec Actuator (`/actuator/health`, etc.).
+
+### 3. Cycle de vie simplifié
+
+1. **Initialisation** : lecture de la config, scan des beans.
+2. **Création des beans** : instanciation, injection des dépendances.
+3. **Configuration** : application des valeurs du YAML, des profils, etc.
+4. **Démarrage du serveur** : si web, Tomcat démarre et écoute sur le port défini.
+5. **Application prête** : endpoints REST, services, etc. sont accessibles.
+
+### 4. Pourquoi c’est simple ?
+
+- Pas besoin de tout configurer à la main : Spring Boot "devine" ce que tu veux selon les starters et le YAML.
+- Un seul point d’entrée (`@SpringBootApplication`), tout est auto-scanné.
+- Tu ajoutes des classes annotées, Spring Boot les gère tout seul.
+
+### 5. Résumé oral pour l’entretien
+
+> "Spring Boot démarre en lisant la config, scanne le code pour trouver les classes à gérer, crée tous les objets nécessaires, configure tout automatiquement, puis lance le serveur web. Grâce aux starters et au YAML, on a très peu de config à écrire soi-même."

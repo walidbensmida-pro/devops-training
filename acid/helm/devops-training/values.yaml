@@ -1,0 +1,42 @@
+# Fichier de valeurs Helm pour devops-training (GKE ou multi-cloud)
+
+replicaCount: 1
+
+image:
+  repository: walidbensmida/devops-training
+  tag: latest
+  pullPolicy: Always
+
+service:
+  port: 8081
+  type: LoadBalancer
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "250m"
+    memory: "512Mi"
+
+env:
+  SPRING_PROFILES_ACTIVE: default
+
+secrets:
+  vaultToken:
+    name: vault-token-secret
+    key: VAULT_TOKEN
+  keycloakClient:
+    name: keycloak-client-secret
+    key: KEYCLOAK_CLIENT_SECRET
+  openaiApiKey:
+    name: openai-api-key-secret
+    key: OPENAI_API_KEY
+
+ingress:
+  enabled: true
+  host: devops.local
+  className: nginx
+  tls: false
+  tlsSecret: ""
+  annotations: {}

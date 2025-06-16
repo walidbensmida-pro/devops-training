@@ -1,5 +1,6 @@
 package com.harington.devops_training.service;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -113,7 +114,7 @@ public class KafkaConsumerService {
             log.info("[Batch][partition={}] Contrat id={} label='{}' => isEligible={}", partition, contract.getId(),
                     contract.getLabel(), isEligible);
             batchSummary.append(contract.getId()).append(":").append(isEligible ? "✔" : "✘").append(", ");
-            results.add(new ContractResultDto(contract.getId(), isEligible));
+            results.add(new ContractResultDto(contract.getId(), isEligible,new BigDecimal(10)));
         }
         // Retirer la dernière virgule
         if (batch.size() > 0) {
