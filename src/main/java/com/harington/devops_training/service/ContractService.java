@@ -3,11 +3,12 @@ package com.harington.devops_training.service;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import com.harington.devops_training.kafka.producer.KafkaProducerService;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.harington.devops_training.model.ContractDto;
+import com.harington.devops_training.kafka.model.ContractDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

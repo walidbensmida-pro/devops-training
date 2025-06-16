@@ -2,6 +2,7 @@ package com.harington.devops_training.controller;
 
 import java.util.List;
 
+import com.harington.devops_training.kafka.model.ContractDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.harington.devops_training.model.ContractDto;
 import com.harington.devops_training.service.ContractService;
-import com.harington.devops_training.service.KafkaConsumerService;
-import com.harington.devops_training.service.KafkaProducerService;
+import com.harington.devops_training.kafka.consumer.KafkaConsumerService;
+import com.harington.devops_training.kafka.producer.KafkaProducerService;
 
 import lombok.RequiredArgsConstructor;
 

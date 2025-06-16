@@ -1,4 +1,4 @@
-package com.harington.devops_training.config;
+package com.harington.devops_training.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

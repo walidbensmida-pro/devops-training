@@ -1,4 +1,4 @@
-package com.harington.devops_training.model;
+package com.harington.devops_training.kafka.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
