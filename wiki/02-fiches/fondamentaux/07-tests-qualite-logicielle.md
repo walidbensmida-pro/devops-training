@@ -1,5 +1,13 @@
 # Fiche de révision : Tests & Qualité logicielle
 
+📑 **Sommaire**
+1. [Concepts clés](#concepts-clés)
+2. [Types de tests](#types-de-tests)
+3. [Pyramide des tests](#pyramide-des-tests)
+4. [Outils de test](#outils-de-test)
+5. [Qualité du code](#qualité-du-code)
+6. [Questions d'entretien](#questions-dentretien)
+
 ---
 
 ## Concepts clés

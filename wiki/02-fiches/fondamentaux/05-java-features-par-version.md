@@ -1,5 +1,12 @@
 # Fiche de révision : Évolutions majeures de Java (LTS uniquement)
 
+📑 **Sommaire**
+1. [Java 8](#java-8-2014)
+2. [Java 11](#java-11-2018)
+3. [Java 17](#java-17-2021)
+4. [Java 21](#java-21-2023)
+5. [Questions d'entretien](#questions-dentretien)
+
 ---
 
 ## Java 8 (2014)
@@ -140,3 +147,37 @@
 ---
 
 **Astuce** : Retenir les features majeures (lambdas, streams, var, records, virtual threads, pattern matching, HttpClient) et savoir donner un exemple rapide pour chaque version !
+
+---
+
+## Questions d'entretien
+
+1. **Quelles sont les nouveautés de Java 8 ?**
+   - Lambdas, Streams, Optional, nouvelle API Date/Time, méthodes par défaut dans les interfaces.
+
+2. **Comment exécuter un fichier Java sans compilation ? (Java 11+)**
+   - Avec la commande `java` suivie du nom du fichier : `java Hello.java`.
+
+3. **Qu'est-ce qu'un Virtual Thread ? (Java 21+)**
+   - Un thread léger, géré par la JVM, permettant une programmation concurrente à grande échelle.
+
+4. **À quoi servent les Sealed Classes ? (Java 17+)**
+   - À contrôler les sous-types autorisés d'une classe, renforçant ainsi la sécurité et la maintenabilité.
+
+5. **Comment fonctionne le pattern matching pour instanceof ? (Java 17+)**
+   - Il permet de tester et de caster un objet en une seule opération, réduisant ainsi le boilerplate code.
+
+6. **Quelles sont les améliorations apportées aux records ? (Java 17+)**
+   - Les records génèrent automatiquement les méthodes `equals`, `hashCode`, `toString`, etc.
+
+7. **Comment utiliser l'API HttpClient ? (Java 11+)**
+   - En créant une instance de `HttpClient`, puis en construisant une requête avec `HttpRequest` et en l'envoyant avec la méthode `send`.
+
+8. **Qu'est-ce que le Scoped Value ? (Java 21+)**
+   - C'est une fonctionnalité permettant de partager des données de manière sûre entre des threads virtuels.
+
+9. **Comment fonctionne le String template ? (Java 21+)**
+   - Il permet d'interpoler des variables directement dans les chaînes de caractères avec une syntaxe dédiée.
+
+10. **Quelle est la différence entre une interface classique et une interface avec méthodes par défaut ? (Java 8+)**
+    - Une interface avec méthodes par défaut peut fournir une implémentation par défaut pour ses méthodes, tandis qu'une interface classique ne le peut pas.

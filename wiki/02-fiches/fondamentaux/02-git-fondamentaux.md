@@ -1,5 +1,14 @@
 # Git pour les nuls : Cheatsheet
 
+📑 **Sommaire**
+1. [C’est quoi Git ?](#1-cest-quoi-git-)
+2. [Initialiser un dépôt](#2-initialiser-un-dépôt)
+3. [Cloner un dépôt existant](#3-cloner-un-dépôt-existant)
+4. [Ajouter et valider des changements](#4-ajouter-et-valider-des-changements)
+5. [Branches](#5-branches)
+6. [Fusion et résolution de conflits](#6-fusion-et-résolution-de-conflits)
+7. [Astuces Git](#7-astuces-git)
+
 ## 1. C’est quoi Git ?
 Git est un outil pour sauvegarder, partager et collaborer sur du code. Il garde l’historique de tous les changements.
 

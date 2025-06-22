@@ -1,5 +1,13 @@
 # YAML pour les nuls : Cheatsheet
 
+📑 **Sommaire**
+1. [C’est quoi YAML ?](#1-cest-quoi-yaml-)
+2. [Règles de base](#2-règles-de-base)
+3. [Exemples](#3-exemples)
+4. [Astuces YAML](#4-astuces-yaml)
+
+---
+
 ## 1. C’est quoi YAML ?
 YAML est un format de fichier texte pour décrire des données (configurations, déploiements, etc.). Il est utilisé partout en DevOps (Kubernetes, GitHub Actions, etc.).
 

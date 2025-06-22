@@ -1,37 +1,25 @@
 # Fiche de révision : Sécurité applicative moderne
 
----
-
-## Sommaire
-
-- [Fiche de révision : Sécurité applicative moderne](#fiche-de-révision--sécurité-applicative-moderne)
-  - [Sommaire](#sommaire)
-  - [Concepts clés](#concepts-clés)
-    - [Définitions rapides](#définitions-rapides)
-  - [Exemples concrets](#exemples-concrets)
-    - [Authentification JWT avec Spring Security](#authentification-jwt-avec-spring-security)
-    - [Protéger une API avec OAuth2 (Spring Boot)](#protéger-une-api-avec-oauth2-spring-boot)
-    - [CORS (Spring Boot)](#cors-spring-boot)
-    - [Input validation (Java)](#input-validation-java)
-    - [Gestion des secrets (Vault CLI)](#gestion-des-secrets-vault-cli)
-    - [IAM Cloud (exemple GCP)](#iam-cloud-exemple-gcp)
-    - [Scan CI/CD (GitHub Actions)](#scan-cicd-github-actions)
-  - [Tableau : Attaques courantes \& parades](#tableau--attaques-courantes--parades)
-  - [Astuces entretien](#astuces-entretien)
-  - [Quiz rapide](#quiz-rapide)
-  - [Questions d’entretien \& cas pratiques](#questions-dentretien--cas-pratiques)
-  - [Réponses types (synthétiques)](#réponses-types-synthétiques)
-  - [Réponse type à la question : "Comment sécuriser une application en microservices ?"](#réponse-type-à-la-question--comment-sécuriser-une-application-en-microservices-)
+📑 **Sommaire**
+1. [Concepts clés](#concepts-clés)
+2. [Définitions rapides](#définitions-rapides)
+3. [Exemples concrets](#exemples-concrets)
+4. [Tableau : Attaques courantes & parades](#tableau--attaques-courantes--parades)
+5. [Astuces entretien](#astuces-entretien)
+6. [Quiz rapide](#quiz-rapide)
+7. [Questions d’entretien & cas pratiques](#questions-dentretien--cas-pratiques)
+8. [Réponses types (synthétiques)](#réponses-types-synthétiques)
+9. [Réponse type à la question : "Comment sécuriser une application en microservices ?"](#réponse-type-à-la-question--comment-sécuriser-une-application-en-microservices-)
     - [1. Méthodologie globale](#1-méthodologie-globale)
     - [2. Étapes et bonnes pratiques](#2-étapes-et-bonnes-pratiques)
     - [3. Technologies et protocoles recommandés](#3-technologies-et-protocoles-recommandés)
     - [4. Schéma mermaid : chaîne de sécurité microservices](#4-schéma-mermaid--chaîne-de-sécurité-microservices)
     - [5. Astuces entretien](#5-astuces-entretien)
-  - [Réponse simple et débutant à : "Comment sécuriser une application en microservices ?"](#réponse-simple-et-débutant-à--comment-sécuriser-une-application-en-microservices-)
+10. [Réponse simple et débutant à : "Comment sécuriser une application en microservices ?"](#réponse-simple-et-débutant-à--comment-sécuriser-une-application-en-microservices-)
     - [Étapes claires à l’oral (niveau débutant)](#étapes-claires-à-loral-niveau-débutant)
     - [Exemple de réponse orale (débutant)](#exemple-de-réponse-orale-débutant)
     - [Astuce entretien](#astuce-entretien)
-  - [Exemple d'étapes concrètes pour sécuriser une appli microservices Spring Boot (débutant)](#exemple-détapes-concrètes-pour-sécuriser-une-appli-microservices-spring-boot-débutant)
+11. [Exemple d'étapes concrètes pour sécuriser une appli microservices Spring Boot (débutant)](#exemple-détapes-concrètes-pour-sécuriser-une-appli-microservices-spring-boot-débutant)
     - [Résumé oral](#résumé-oral)
 
 ---

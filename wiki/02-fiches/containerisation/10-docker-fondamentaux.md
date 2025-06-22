@@ -1,4 +1,3 @@
-<!-- filepath: cheatsheets/docker-cheat-sheet.md -->
 # Docker Cheat Sheet
 
 Voici une liste rapide des commandes Docker essentielles, accompagnées d'explications et d'exemples.

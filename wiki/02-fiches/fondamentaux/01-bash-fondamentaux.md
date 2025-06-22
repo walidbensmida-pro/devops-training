@@ -1,5 +1,13 @@
 # Bash pour les nuls : Cheatsheet
 
+📑 **Sommaire**
+- [Bash pour les nuls : Cheatsheet](#bash-pour-les-nuls--cheatsheet)
+  - [1. C’est quoi Bash ?](#1-cest-quoi-bash-)
+  - [2. Commandes de base](#2-commandes-de-base)
+  - [3. Astuces utiles](#3-astuces-utiles)
+
+---
+
 ## 1. C’est quoi Bash ?
 Bash est le langage de commande des terminaux Linux/Mac. Il permet de lancer des programmes, manipuler des fichiers, automatiser des tâches.
 

@@ -1,5 +1,12 @@
 # Fiche de révision : Programmation impérative, orientée objet et fonctionnelle (Java)
 
+📑 **Sommaire**
+1. [Programmation impérative](#1-programmation-impérative)
+2. [Programmation orientée objet (POO)](#2-programmation-orientée-objet-poo)
+3. [Programmation fonctionnelle](#3-programmation-fonctionnelle)
+4. [Comparatif des paradigmes](#4-comparatif-des-paradigmes)
+5. [Questions d'entretien](#5-questions-dentretien)
+
 ---
 
 ## 1. Programmation impérative
@@ -126,7 +133,7 @@ mots.stream()
 
 ---
 
-## 4. Résumé visuel
+## 4. Comparatif des paradigmes
 | Style         | Exemple clé                | Avantage principal         |
 |---------------|---------------------------|---------------------------|
 | Impératif     | Boucles, if/else          | Contrôle précis           |
@@ -135,7 +142,7 @@ mots.stream()
 
 ---
 
-## 5. À retenir pour l’entretien
+## 5. Questions d'entretien
 - **Interface fonctionnelle** = 1 méthode abstraite → lambda possible
 - **Lambda** = fonction anonyme, syntaxe `(x) -> x + 1`
 - **Référence de méthode** = `Class::methode`

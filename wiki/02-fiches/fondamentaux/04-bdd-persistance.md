@@ -1,5 +1,13 @@
 # Fiche de révision : Bases de données & persistance
 
+📑 **Sommaire**
+1. [Concepts clés](#concepts-clés)
+2. [Transactions & ACID](#transactions--acid)
+3. [SQL vs NoSQL](#sql-vs-nosql)
+4. [Exemples SQL](#exemples-sql)
+5. [Index et performances](#index-et-performances)
+6. [Questions d'entretien](#questions-dentretien)
+
 ---
 
 ## Concepts clés
