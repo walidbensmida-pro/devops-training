@@ -23,7 +23,6 @@ import com.harington.devops_training.kafka.producer.KafkaProducerService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Service
 @Slf4j
 public class KafkaConsumerService {
@@ -31,6 +30,7 @@ public class KafkaConsumerService {
     private final KafkaProducerService kafkaProducerService;
 
     private final List<String> messages = Collections.synchronizedList(new ArrayList<>());
+    private final ObjectMapper objectMapper;
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
@@ -46,9 +46,11 @@ public class KafkaConsumerService {
 
     private static final String CONSUMER_GROUP = "devops-training-group";
 
-    public KafkaConsumerService(KafkaDemoProperties kafkaDemoProperties, KafkaProducerService kafkaProducerService) {
+    public KafkaConsumerService(KafkaDemoProperties kafkaDemoProperties, KafkaProducerService kafkaProducerService,
+            ObjectMapper objectMapper) {
         this.kafkaDemoProperties = kafkaDemoProperties;
         this.kafkaProducerService = kafkaProducerService;
+        this.objectMapper = objectMapper;
     }
 
     /**
@@ -128,6 +130,7 @@ public class KafkaConsumerService {
     public String getDemoTopic() {
         return kafkaDemoProperties.getTopic();
     }
+
     /**
      * Traite le batch, logge, ajoute le résumé à messages, et publie le résultat
      * sur le topic résultat.
@@ -136,7 +139,6 @@ public class KafkaConsumerService {
      */
     private void calculateBatchSummaryAndSendResult(String value, int partition)
             throws JsonProcessingException, JsonMappingException {
-        ObjectMapper objectMapper = new ObjectMapper();
         List<ContractDto> batch = objectMapper.readValue(value, new TypeReference<List<ContractDto>>() {
         });
         StringBuilder batchSummary = new StringBuilder();
@@ -154,7 +156,7 @@ public class KafkaConsumerService {
             log.info("[Batch][partition={}] Contrat id={} label='{}' => isEligible={}", partition, contract.getId(),
                     contract.getLabel(), isEligible);
             batchSummary.append(contract.getId()).append(":").append(isEligible ? "✔" : "✘").append(", ");
-            results.add(new ContractResultDto(contract.getId(), isEligible,new BigDecimal(10)));
+            results.add(new ContractResultDto(contract.getId(), isEligible, new BigDecimal(10)));
         }
         // Retirer la dernière virgule
         if (batch.size() > 0) {

@@ -24,19 +24,6 @@ public class ContractDto {
     private BigDecimal amount;
     private Boolean isEligible;
 
-    public static ContractDto from(String id, String label, String description, LocalDate startDate, LocalDate endDate,
-            BigDecimal amount, Boolean isEligible) {
-        return ContractDto.builder()
-                .id(id)
-                .label(label)
-                .description(description)
-                .startDate(startDate)
-                .endDate(endDate)
-                .amount(amount)
-                .isEligible(isEligible)
-                .build();
-    }
-
     public static List<ContractDto> generateMocks(int count) {
         LocalDate today = LocalDate.now();
         return IntStream.rangeClosed(1, count)
@@ -45,8 +32,15 @@ public class ContractDto {
                     LocalDate end = today.plusDays(i % 3 == 0 ? -5 : 10 + i); // certains déjà expirés
                     BigDecimal amount = BigDecimal.valueOf(5_000_000L + (i * 2_000_000L));
                     boolean eligible = end.isAfter(today) && amount.compareTo(BigDecimal.valueOf(10_000_000L)) > 0;
-                    return from(String.valueOf(i), "Contrat " + i, "Description du contrat " + i, start, end, amount,
-                            eligible);
+                    return ContractDto.builder()
+                            .id(String.valueOf(i))
+                            .label("Contrat " + i)
+                            .description("Description du contrat " + i)
+                            .startDate(start)
+                            .endDate(end)
+                            .amount(amount)
+                            .isEligible(eligible)
+                            .build();
                 })
                 .toList();
     }

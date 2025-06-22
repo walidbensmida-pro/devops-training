@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "ContractAvro",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "amount", "type": "double"},
+    {"name": "isEligible", "type": "boolean"}
+  ]
+}

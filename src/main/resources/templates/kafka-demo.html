@@ -70,6 +70,17 @@
                 <button type="submit">Publier un message de test</button>
             </form>
         </section>
+
+        <section class="kafka-card" id="test-kstream">
+            <h2>Test KStream (contrats par batch)</h2>
+            <form th:action="@{/kafka-demo/test-kstream}" method="post">
+                <label for="total">Nombre total de contrats :</label>
+                <input type="number" id="total" name="total" min="1" value="10" required />
+                <label for="batchSize">Taille d'un batch :</label>
+                <input type="number" id="batchSize" name="batchSize" min="1" value="5" required />
+                <button type="submit">Envoyer les contrats</button>
+            </form>
+        </section>
     </div>
 
     <!-- Plus tard : autres cas d'usage pédagogiques -->

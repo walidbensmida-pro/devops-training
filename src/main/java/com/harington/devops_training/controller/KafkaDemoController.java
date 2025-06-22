@@ -3,11 +3,18 @@ package com.harington.devops_training.controller;
 import java.util.List;
 
 import com.harington.devops_training.kafka.model.ContractDto;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StoreQueryParameters;
+import org.apache.kafka.streams.state.QueryableStoreTypes;
+import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +34,7 @@ public class KafkaDemoController {
     private final KafkaProducerService producerService;
     private final KafkaConsumerService consumerService;
     private final ContractService contractService;
-    private static final Logger logger = LoggerFactory.getLogger(KafkaDemoController.class);
+    private final StreamsBuilderFactoryBean streamsBuilderFactoryBean;
 
     @GetMapping
     public String kafkaDemoPage(Model model) {
@@ -72,12 +79,28 @@ public class KafkaDemoController {
         return consumerService.pollMessagesFromKafka();
     }
 
-    @GetMapping("/test-kstream")
-    public String testKStream() {
-        // Génère 10 contrats mock, batch de 5
-        var contracts = ContractDto.generateMocks(10);
-        var batches = ContractDto.partition(contracts, 5);
+    @PostMapping("/test-kstream")
+    public String testKStream(@RequestParam int total, @RequestParam int batchSize) {
+        var contracts = ContractDto.generateMocks(total);
+        var batches = ContractDto.partition(contracts, batchSize);
         contractService.sendBatches(batches);
         return "redirect:/kafka-demo";
+    }
+
+    /**
+     * Endpoint pour interroger le state store (ex: /kafka-demo/state/client-123)
+     */
+    @GetMapping("/state/{clientId}")
+    @ResponseBody
+    public String getEligibleCountForClient(@PathVariable String clientId) {
+        KafkaStreams kafkaStreams = streamsBuilderFactoryBean.getKafkaStreams();
+        if (kafkaStreams == null) {
+            return "KafkaStreams n'est pas disponible (pas encore initialisé ou pas d'instance dans le contexte)";
+        }
+        ReadOnlyKeyValueStore<String, Long> store = kafkaStreams.store(StoreQueryParameters.fromNameAndType(
+                "eligible-contracts-count-store",
+                QueryableStoreTypes.keyValueStore()));
+        Long count = store.get(clientId);
+        return count == null ? "0" : count.toString();
     }
 }

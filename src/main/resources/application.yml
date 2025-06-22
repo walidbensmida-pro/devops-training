@@ -59,7 +59,11 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     streams:
       application-id: devops-training-streams
+      default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bootstrap-servers: kafka:9092
+    properties:
+      [schema.registry.url]: http://localhost:8082
 
 kafka:
   demo:
